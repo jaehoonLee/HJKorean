@@ -22,6 +22,8 @@
         $("." + index).css({'display' : 'none'});
         index++;
         $("." + index).css({'display' : ''});
+        $("#check").css({'display' : 'none'});
+        $(".answer:checked").prop('checked', false);
     }
 
     var client = new XMLHttpRequest();
