@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+<link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <style type="text/css">
     .answer
     {
@@ -11,18 +14,89 @@
         height : 30px;
     }
 </style>
+<script type="text/javascript">
+    var index = 0;
+
+    function nextQuestion()
+    {
+        $("." + index).css({'display' : 'none'});
+        index++;
+        $("." + index).css({'display' : ''});
+    }
+
+    var client = new XMLHttpRequest();
+    function checkAnswer()
+    {
+        var formData = new FormData();
+        val = $(".answer:checked").val();
+        id = $("." + index).attr('id');
+        console.log(id);
+        if(val!='')
+        {
+            formData.append("answer", val);
+            formData.append("id", id);
+            client.open("POST", "/check_answer/", true);
+            client.send(formData);
+        }
+        else
+        {
+            /*
+             $(".translaterInfoSubDiv").css({"height" : '700px'});
+             $(".translaterInfoSubDiv2").css({"height" : '700px'});
+             $(".welcomeDiv").css({"height" : '1210px'});
+             $("#nicknameErrorDiv").css({"height" : '30px', 'display' : ''});
+
+             $("#nicknameErrorText").css({"color" : 'red' , 'display' : ''});
+             $("#nicknameErrorText").text("닉네임을 입력해주세요.")
+             */
+        }
+    }
+
+    client.onreadystatechange = function()
+    {
+        if (client.readyState == 4 && client.status == 200)
+        {
+            var obj = JSON.parse(client.responseText);
+            var value = obj.result;
+            var answer = obj.answer;
+            console.log(obj);
+
+            if(value == 0){
+
+                $("#check").css({"color" : 'red' , 'display' : ''});
+                $("#check").text("틀렸습니다. 답은 " + answer + "번")
+            }
+            else {
+                $("#check").css({"color" : 'green' , 'display' : ''});
+                $("#check").text("맞았습니다.")
+            }
+        }
+    }
+</script>
 <body>
-<h2>한국사 검정 시험 모음</h2>
-<img src="{{ STATIC_URL }}h_5_1_1.png" style="float:left;">
-<div style="float:left; width : 80px; height : 300px;">
-    <form>
-        <input type="radio" name="answer" value="0" class="answer">1번</br>
-        <input type="radio" name="answer" value="0" class="answer">2번</br>
-        <input type="radio" name="answer" value="0" class="answer">3번</br>
-        <input type="radio" name="answer" value="0" class="answer">4번
-        <input type="submit" value="제출" style="margin-top:20px; width: 80px;font-size:30px;">
-        <input type="submit" value="다음" style="margin-top:20px; width: 80px;font-size:30px;">
-    </form>
+<div style="width:700px;">
+    <h2>한국사 검정 시험 모음</h2>
+    {% for question in questions %}
+        {% if forloop.counter0 == 0 %}
+            <img src="{{ STATIC_URL }}{{ question.url }}.png" style="float:left;" id="{{ question.id }}" class="{{forloop.counter0}}">
+        {% else %}
+            <img src="{{ STATIC_URL }}{{ question.url }}.png" style="float:left;display: none;" id="{{ question.id }}" class="{{forloop.counter0}}">
+        {% endif %}
+    {% endfor %}
+    <div style="float:left; width : 80px; height : 450px;">
+        <form>
+            <input type="radio" name="answer" value="0" class="answer">1번</br>
+            <input type="radio" name="answer" value="1" class="answer">2번</br>
+            <input type="radio" name="answer" value="2" class="answer">3번</br>
+            <input type="radio" name="answer" value="3" class="answer">4번
+            <button type="button" class="btn btn-success transbtn" onclick="javascript:checkAnswer();" style="margin-top:20px; width: 80px;font-size:20px;">제출</button>
+            <button type="button" class="btn  btn-info transbtn" onclick="javascript:nextQuestion();" style="margin-top:20px; width: 80px;font-size:20px;">다음</button>
+        </form>
+    </div>
 </div>
+<div style="width:600px;">
+    <p id="check" style="color:green; font-size:50px; display: none; ">맞았어요!!</p>
+</div>
+
 </body>
 </html>
