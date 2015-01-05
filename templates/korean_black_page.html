@@ -77,27 +77,29 @@
 </script>
 <body>
 <div style="width:700px;">
-    <h2>한국사 검정 시험 모음</h2>
-    {% for question in questions %}
-        {% if forloop.counter0 == 0 %}
-            <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;" id="{{ question.id }}" class="{{forloop.counter0}}">
-        {% else %}
-            <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;display: none;" id="{{ question.id }}" class="{{forloop.counter0}}">
-        {% endif %}
-    {% endfor %}
-    <div style="float:left; width : 80px; height : 450px;">
-        <form>
-            <input type="radio" name="answer" value="0" class="answer">1번</br>
-            <input type="radio" name="answer" value="1" class="answer">2번</br>
-            <input type="radio" name="answer" value="2" class="answer">3번</br>
-            <input type="radio" name="answer" value="3" class="answer">4번
-            <button type="button" class="btn btn-success transbtn" onclick="javascript:checkAnswer();" style="margin-top:20px; width: 80px;font-size:20px;">제출</button>
-            <button type="button" class="btn  btn-info transbtn" onclick="javascript:nextQuestion();" style="margin-top:20px; width: 80px;font-size:20px;">다음</button>
-        </form>
+    <div style="width:700px; float:left;">
+        <h2>한국사 검정 시험 모음</h2>
+        {% for question in questions %}
+            {% if forloop.counter0 == 0 %}
+                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;" id="{{ question.id }}" class="{{forloop.counter0}}">
+            {% else %}
+                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;display: none;" id="{{ question.id }}" class="{{forloop.counter0}}">
+            {% endif %}
+        {% endfor %}
+        <div style="float:left; width : 80px; height : 450px;">
+            <form>
+                <input type="radio" name="answer" value="0" class="answer">1번</br>
+                <input type="radio" name="answer" value="1" class="answer">2번</br>
+                <input type="radio" name="answer" value="2" class="answer">3번</br>
+                <input type="radio" name="answer" value="3" class="answer">4번
+                <button type="button" class="btn btn-success transbtn" onclick="javascript:checkAnswer();" style="margin-top:20px; width: 80px;font-size:20px;">제출</button>
+                <button type="button" class="btn  btn-info transbtn" onclick="javascript:nextQuestion();" style="margin-top:20px; width: 80px;font-size:20px;">다음</button>
+            </form>
+        </div>
     </div>
-</div>
-<div style="width:600px;">
-    <p id="check" style="color:green; font-size:50px; display: none; ">맞았어요!!</p>
+    <div style="width:700px; float:left;">
+        <p id="check" style="color:green; font-size:50px; display: none; ">맞았어요!!</p>
+    </div>
 </div>
 
 </body>
