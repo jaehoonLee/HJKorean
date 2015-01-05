@@ -9,10 +9,10 @@ import simplejson
 
 # Create your views here.
 def main_page(request):
-    questionsets = QuestionSet.objects.all()
+    questionsets1 = QuestionSet.objects.all().filter(type=0)
     corrects = []
     wrongs = []
-    for question_set in questionsets:
+    for question_set in questionsets1:
         correct = 0
         wrong = 0
         for question in question_set.question_set.all():
@@ -23,8 +23,27 @@ def main_page(request):
         corrects.append(correct)
         wrongs.append(wrong)
 
+    questionsets2 = QuestionSet.objects.all().filter(type=1)
+    corrects2 = []
+    wrongs2 = []
+    for question_set in questionsets2:
+        correct = 0
+        wrong = 0
+        for question in question_set.question_set.all():
+            if question.correct == True:
+                correct = correct + 1
+            else :
+                wrong = wrong + 1
+        corrects2.append(correct)
+        wrongs2.append(wrong)
 
-    return render_to_response('main.html', RequestContext(request,{'question_sets' : questionsets, 'corrects' : corrects, 'wrongs' : wrongs}))
+    print corrects2
+    print wrongs2
+
+
+    return render_to_response('main.html', RequestContext(request,
+                                                          {'question_sets1' : questionsets1, 'corrects' : corrects, 'wrongs' : wrongs,
+                                                           'question_sets2' : questionsets2, 'corrects2' : corrects2, 'wrongs2' : wrongs2}))
 
 def korean_black_page(request, set_id):
     questionset = QuestionSet.objects.filter(id=set_id)[0]
