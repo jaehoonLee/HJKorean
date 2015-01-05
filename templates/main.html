@@ -18,10 +18,15 @@
 <body>
 <h2>사회복지직 국사 모의고사 문제 모음</h2>
 {% for questionset in question_sets %}
-<form action="/korean_black_page/{{questionset.id}}/" method="GET">
-    1. <input type="submit" value="{{questionset.name}}" style="width : 200px; font-size:20px;">
+    <div style="float: left; margin-right:10px;">{{ forloop.counter }}. </div>
+    <form action="/korean_black_page/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
+        <input type="submit" value="{{questionset.name}}" style="width : 200px; font-size:20px;">
+    </form>
+    <form action="/korean_black_page_wrong/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
+        <input type="submit" value="틀린 문제만" style="width : 150px; font-size:20px;">
+    </form>
+
     맞음 : {{ corrects|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs|get_at_index:forloop.counter0 }}
-</form>
 {% endfor %}
 
 </body>

@@ -31,6 +31,11 @@ def korean_black_page(request, set_id):
     questions = questionset.question_set.all()
     return render_to_response('korean_black_page.html', RequestContext(request, {'questions' : questions}))
 
+def korean_black_page_wrong(request, set_id):
+    questionset = QuestionSet.objects.filter(id=set_id)[0]
+    questions = questionset.question_set.all().filter(correct=False)
+    return render_to_response('korean_black_page.html', RequestContext(request, {'questions' : questions}))
+
 @csrf_exempt
 def check_answer(request):
     answer = request.POST['answer']
