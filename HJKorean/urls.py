@@ -5,7 +5,7 @@ from Main.views import *
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', main_page, name='main_page'),
-    url(r'^korean_black_page/', korean_black_page, name='korean_black_page'),
+    url(r'^korean_black_page/(?P<set_id>\d+)/', korean_black_page, name='korean_black_page'),
     url(r'^check_answer/', check_answer, name='check_answer'),
 
 
