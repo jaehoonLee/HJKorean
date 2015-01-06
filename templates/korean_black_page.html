@@ -2,17 +2,107 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title></title>
 </head>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
 <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <style type="text/css">
-    .answer
-    {
-        width : 30px;
-        height : 30px;
+    @media screen and (max-width: 321px) {
+        .answer
+        {
+            width : 30px;
+            height : 30px;
+        }
+
+        .mainDiv{
+            width:320px;
+        }
+
+        .subDiv{
+            width:320px;
+        }
+
+        #problemImg{
+            max-width:310px;max-height:320px;
+        }
+
+        #problemImgHid{
+            max-width:310px;max-height:320px;display: none;
+        }
+
+        .answerDiv{
+            margin-top:10px;
+            float:left;
+            width:70px;
+        }
+
+        .mainAnswerDiv{
+            float:left; width : 320px; height : 450px;
+        }
     }
+    @media screen and (min-width: 321px) and (max-width: 361px) {
+        .answer
+        {
+            width : 30px;
+            height : 30px;
+        }
+
+        .mainDiv{
+            width:360px;
+        }
+
+        .subDiv{
+            width:360px;
+        }
+
+        #problemImg{
+            max-width:350px;max-height:360px;
+        }
+
+        #problemImgHid{
+            max-width:350px;max-height:360px;display: none;
+        }
+
+        .answerDiv{
+            margin-top:10px;
+            float:left;
+            width:80px;
+        }
+
+        .mainAnswerDiv{
+            float:left; width : 320px; height : 450px;
+        }
+    }
+    @media screen and (min-width: 361px) {
+        .answer
+        {
+            width : 30px;
+            height : 30px;
+        }
+
+        .mainDiv{
+            width:700px;
+        }
+
+        .subDiv{
+            width:700px; float:left;
+        }
+
+        #problemImg{
+            float:left;max-width:400px;max-height:400px;
+        }
+
+        #problemImgHid{
+            float:left;max-width:400px;max-height:400px;display: none;
+        }
+
+        .mainAnswerDiv{
+            float:left; width : 80px; height : 450px;
+        }
+    }
+
 </style>
 <script type="text/javascript">
     var index = 0;
@@ -76,22 +166,22 @@
     }
 </script>
 <body>
-<div style="width:700px;">
-    <div style="width:700px; float:left;">
-        <h2>한국사 검정 시험 모음</h2>
+<div class="mainDiv">
+    <div class="subDiv">
+        <h2 style="text-align:center">{{ questionset.name }}</h2>
         {% for question in questions %}
             {% if forloop.counter0 == 0 %}
-                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;max-width:400px;max-height:400px;" id="{{ question.id }}" class="{{forloop.counter0}}">
+                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" id="problemImg" id="{{ question.id }}" class="{{forloop.counter0}}">
             {% else %}
-                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" style="float:left;display: none;max-width:400px;max-height:400px;" id="{{ question.id }}" class="{{forloop.counter0}}">
+                <img src="{{ STATIC_URL }}{{question.question_set.name}}/{{ question.url }}.png" id="problemImgHid" id="{{ question.id }}" class="{{forloop.counter0}}">
             {% endif %}
         {% endfor %}
-        <div style="float:left; width : 80px; height : 450px;">
+        <div class="mainAnswerDiv">
             <form>
-                <input type="radio" name="answer" value="0" class="answer">1번</br>
-                <input type="radio" name="answer" value="1" class="answer">2번</br>
-                <input type="radio" name="answer" value="2" class="answer">3번</br>
-                <input type="radio" name="answer" value="3" class="answer">4번
+                <div class="answerDiv"><input type="radio" name="answer" value="0" class="answer">1번</div>
+                <div class="answerDiv"><input type="radio" name="answer" value="1" class="answer">2번</div>
+                <div class="answerDiv"><input type="radio" name="answer" value="2" class="answer">3번</div>
+                <div class="answerDiv"><input type="radio" name="answer" value="3" class="answer">4번</div>
                 <button type="button" class="btn btn-success transbtn" onclick="javascript:checkAnswer();" style="margin-top:20px; width: 80px;font-size:20px;">제출</button>
                 <button type="button" class="btn  btn-info transbtn" onclick="javascript:nextQuestion();" style="margin-top:20px; width: 80px;font-size:20px;">다음</button>
             </form>

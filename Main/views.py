@@ -49,7 +49,7 @@ def main_page(request):
 def korean_black_page(request, set_id):
     questionset = QuestionSet.objects.filter(id=set_id)[0]
     questions = questionset.question_set.all()
-    return render_to_response('korean_black_page.html', RequestContext(request, {'questions' : questions}))
+    return render_to_response('korean_black_page.html', RequestContext(request, {'questions' : questions, 'questionset' : questionset}))
 
 def korean_black_page_wrong(request, set_id):
     questionset = QuestionSet.objects.filter(id=set_id)[0]

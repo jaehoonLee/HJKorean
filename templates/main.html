@@ -3,16 +3,47 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title></title>
 </head>
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
 <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <style type="text/css">
-    .answer
-    {
-        width : 30px;
-        height : 30px;
+    @media screen and (max-width: 321px) {
+        .submitBtn
+        {
+            width : 135px;
+            font-size:15px;
+
+        }
+        .correctCheck
+        {
+            padding-top:10px;
+            text-align: center;
+            width : 320px;
+            font-size:15px;
+        }
+    }
+    @media screen and (min-width: 321px) and (max-width: 360px) {
+        .submitBtn
+        {
+            width : 155px;
+            font-size:20px;
+        }
+        .correctCheck
+        {
+            text-align: center;
+            width : 320px;
+            font-size:20px;
+        }
+    }
+    @media screen and (min-width: 360px) {
+        .submitBtn
+        {
+            width : 200px;
+            font-size:20px;
+        }
     }
 </style>
 <body>
@@ -21,13 +52,12 @@
 {% for questionset in question_sets1 %}
     <div style="float: left; margin-right:10px;">{{ forloop.counter }}. </div>
     <form action="/korean_black_page/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
-        <input type="submit" value="{{questionset.name}}" style="width : 200px; font-size:20px;">
+        <input type="submit" value="{{questionset.name}}" class="submitBtn">
     </form>
     <form action="/korean_black_page_wrong/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
-        <input type="submit" value="틀린 문제만" style="width : 150px; font-size:20px;">
+        <input type="submit" value="틀린 문제만" class="submitBtn">
     </form>
-
-    맞음 : {{ corrects|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs|get_at_index:forloop.counter0 }}
+    <div class="correctCheck">맞음 : {{ corrects|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs|get_at_index:forloop.counter0 }}</div>
 {% endfor %}
 
 
@@ -35,13 +65,12 @@
 {% for questionset in question_sets2 %}
     <div style="float: left; margin-right:10px;">{{ forloop.counter }}. </div>
     <form action="/korean_black_page/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
-        <input type="submit" value="{{questionset.name}}" style="width : 200px; font-size:20px;">
+        <input type="submit" value="{{questionset.name}}" class="submitBtn">
     </form>
     <form action="/korean_black_page_wrong/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
-        <input type="submit" value="틀린 문제만" style="width : 150px; font-size:20px;">
+        <input type="submit" value="틀린 문제만" class="submitBtn">
     </form>
-
-    맞음 : {{ corrects2|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs2|get_at_index:forloop.counter0 }}
+    <div class="correctCheck">맞음 : {{ corrects2|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs2|get_at_index:forloop.counter0 }}</div>
 {% endfor %}
 </body>
 </html>
