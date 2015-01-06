@@ -31,8 +31,8 @@ class Question(models.Model):
     objects = QuestionManager()
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('id','question_set_name',  'url', 'answer')
+    list_display = ('id', 'question_set_name',  'url', 'answer')
     def question_set_name(self, obj):
-        return obj.question_set.name
+        return obj.question_set.id
 
 admin.site.register(Question, QuestionAdmin)
