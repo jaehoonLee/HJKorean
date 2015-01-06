@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -71,3 +72,28 @@ def check_answer(request):
         question.save()
         result = {'result' : 0, 'answer' :  str(question.answer)}
         return HttpResponse(simplejson.dumps(result), 'application/json')
+
+
+def insert_problems(request):
+    problem_sets = ['제1회문제5급', '2014년3월22일']
+    types = [0, 1]
+    index = 0
+    answers = [[3, 2, 3, 4, 3, 4, 1, 2, 1, 2, 3, 2, 1, 1, 2, 3, 2, 3, 1, 4, 4, 4, 4, 3, 2, 4, 1, 3, 1, 4, 4, 1, 1, 3, 4],
+               [4, 1, 1, 4, 3, 2, 4, 3, 1, 3, 1, 2, 3, 1, 2, 4, 4, 3, 2, 4]]
+
+    for problem_set in problem_sets:
+        print problem_set
+        print len(QuestionSet.objects.filter(name=problem_set))
+        question_set=''
+        if len(QuestionSet.objects.filter(name=problem_set)) == 0:
+            question_set=QuestionSet.objects.create_question_set(problem_set, types[index], 0)
+            print question_set
+
+            answer_index = 0
+            for answer in answers[index]:
+                Question.objects.create_question(answer_index+1, answer, False, question_set)
+                answer_index = answer_index + 1
+        else:
+            continue
+        index = index + 1
+    return HttpResponse("문제 입력을 완료했습니다.")
