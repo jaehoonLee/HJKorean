@@ -113,9 +113,9 @@
 
     function nextQuestion()
     {
-        $(".img" + index).css({'display' : 'none'});
+        $(".img" + String(index)).css({'display' : 'none'});
         index++;
-        $(".img" + index).css({'display' : ''});
+        $(".img" + String(index)).css({'display' : 'block'});
         $("#check").css({'display' : 'none'});
         $(".answer:checked").prop('checked', false);
     }
