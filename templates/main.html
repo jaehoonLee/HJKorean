@@ -38,7 +38,7 @@
             font-size:20px;
         }
     }
-    @media screen and (min-width: 360px) {
+    @media screen and (min-width: 361px) {
         .submitBtn
         {
             width : 200px;
@@ -70,7 +70,7 @@
     <form action="/korean_black_page_wrong/{{questionset.id}}/" method="GET" style="float:left; margin-right:10px;">
         <input type="submit" value="틀린 문제만" class="submitBtn">
     </form>
-    <div class="correctCheck">맞음 : {{ corrects2|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs2|get_at_index:forloop.counter0 }}</div>
+    <div class="correctCheck">맞음 : {{ corrects2|get_at_index:forloop.counter0}}, 틀림 : {{ wrongs2|get_at_index:forloop.counter0 }}</div></br>
 {% endfor %}
 </body>
 </html>
