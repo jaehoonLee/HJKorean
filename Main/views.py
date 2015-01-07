@@ -94,7 +94,6 @@ def insert_problems(request):
             for answer in answers[index]:
                 Question.objects.create_question(answer_index+1, answer, False, question_set)
                 answer_index = answer_index + 1
-        else:
-            continue
+
         index = index + 1
     return HttpResponse("문제 입력을 완료했습니다.")
